@@ -1,0 +1,20 @@
+#!/bin/bash
+#BSUB -J MPIJob                 ### set the job name
+#BSUB -q short                  ### specify queue
+#BSUB -n 40                     ### ask for number of cores (default:1)
+#BSUB -R "span[ptile=20]"       ### ask for 20 cores per node
+#BSUB -W 10:00                  ### set walltime limit: hh:mm
+#BSUB -o std_%J.out             ### specify the output and error file. %J is the job-id
+#BSUB -e std_%J.err             ### -o and -e mean append, -oo and -eo mean overwrite
+
+# here follow the commands you want to execute
+
+# load the necessary modules
+# NOTE: this is just an example, check with the available modules
+module load intel/2018.4
+module load mpi/intel/2018.4
+
+### This uses the LSB_DJOB_NUMPROC to assign all the cores reserved
+### This is a very basic syntax.
+mpirun -np $LSB_DJOB_NUMPROC ./Your_MPI_Program
+
