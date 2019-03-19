@@ -72,24 +72,45 @@
 \begin{document}
 
 \maketitle
-\centerline{Version: 0.1}
+\centerline{Version: 0.2}
 \newpage
 \tableofcontents
 \newpage
+
+\section{注意事项}
+\begin{enumerate}[\hspace{15mm}（1）]
+  \item 严禁在任何节点直接运行并行程序，
+    所有多核任务必需经由作业系统提交运行；
+  \item 提交作业时务必注意节点的内存限制，
+    切勿提交超负荷任务；
+  \item 提交作业时烦请注意队列的提交限制，
+    以防提交无效作业；
+  \item 用户 HOME 目录所在磁盘 share 为全节点共享，
+    该磁盘所有用户的用户配额为 1TB，
+    当用户的总数据量超过该限制时，
+    该用户将无法创建新文件；
+  \item 请注意及时备份机群上的重要数据，
+    本机群不保证用户数据的安全性；
+  \item 本机群虽安装有 matlab 等绘图软件，
+    但不推荐在机群上直接成图，
+    建议将数据拷贝到本地机器上，
+    再利用本地机器作图。
+\end{enumerate}
 
 \section{LSF 作业调度系统}
 \subsection{集群队列设置}
 \begin{table}[h]
   \centering
   \caption{集群队列设置}
-  \begin{tabular*}{210pt}{@{\extracolsep{\fill}}ccc}
+  \begin{tabular*}{300pt}{@{\extracolsep{\fill}}ccccc}
     \toprule
-    节点 & 队列 & 核数 \\
+    节点 & 队列 & 核数 & 内存 & 作业最长运行时间 \\
     \midrule
-    mn01      & dataq   & - \\
-    c001-c028 & q2680v4 & 28 \\
-    c029-c042 & q6126   & 24 \\
-    s001-s002 & smp     & 72 \\
+    mn01      & dataq & 20 & 62.1G & - \\
+    c001-c028 & short & 28 & 125G & 12:00 \\
+    c001-c028 & long & 28 & 125G & 无限制 \\
+    c029-c042 & large & 24 & 188G & 48:00 \\
+    s001-s002 & smp & 72 & 508G & 24:00 \\
     \bottomrule
   \end{tabular*}
 \end{table}
@@ -98,6 +119,9 @@
 禁止在此节点运行作业。
 
 \subsection{查询系统运行情况}
+通过命令 \mynnote{lshosts}，
+可查看系统各节点硬件配置情况。
+
 通过命令 \mynnote{lsload}，
 可查看系统各节点当前负载。
 
@@ -128,7 +152,7 @@
     此项不指定则调用默认队列；
   \item \mynnote{\#BSUB -n <申请总核数>}：指定总核数，
     此项不指定则总核数默认为 1；
-  \item \mynnote{\#BSUB -R ``描述信息''}：指定资源限制，
+  \item \mynnote{\#BSUB -R "<描述信息>"}：指定资源限制，
     这里的{\em 描述信息}可以为：\newline
     \mynnote{span[ptile=<每个节点的核数>]} 指定每节点使用核数、\newline
     \mynnote{span[phost=<节点数>]} 指定使用节点数、\newline
@@ -147,7 +171,7 @@
 \insertbash{material/lsf.sh}{LSF 作业提交脚本示例}
 
 \subsubsection{依赖作业提交}
-通过在作业提交脚本头部中加入 \mynnote{\#BSUB -W ``<复合作业状态>(<作业号>)''} 的内容，
+通过在作业提交脚本头部中加入 \mynnote{\#BSUB -W "<复合作业状态>(<作业号>)"} 的内容，
 可以实现相互依赖的多个作业任务的提交。
 当指定作业达到指定状态时，
 当前作业才会被派发。
@@ -232,11 +256,11 @@ LSF 调度系统的基本作业状态有：
 此时，还可以通过作业号查看作业的运行记录。
 
 \subsection{参考阅读}
-\href{https://10.20.102.13/ref/lsf_users_guide_v10.1.pdf}{LSF 用户手册}：
-https://10.20.102.13/ref/lsf\_users\_guide\_v10.1.pdf
+\href{http://10.20.102.13/ref/lsf_users_guide_v10.1.pdf}{LSF 用户手册}：
+http://10.20.102.13/ref/lsf\_users\_guide\_v10.1.pdf
 
-\href{https://10.20.102.13/ref/TaiYi_User_Manual_v0.1.pdf}{太乙用户手册}：
-https://10.20.102.13/ref/TaiYi\_User\_Manual\_v0.1.pdf
+\href{http://10.20.102.13/ref/TaiYi_User_Manual_v0.1.pdf}{太乙用户手册}：
+http://10.20.102.13/ref/TaiYi\_User\_Manual\_v0.1.pdf
 
 \href{https://www.ibm.com/support/knowledgecenter/en/SSWRJV_10.1.0/lsf_welcome/lsf_welcome.html}{IBM Spectrum LSF V10.1 documentation}:
 https://www.ibm.com/support/\newline
@@ -340,7 +364,7 @@ intel/2017.8、intel/2018.3 和 intel/2018.4。
 容易造成混乱。
 使用 module 则可以通过方便地 modulefile 进行系统环境变量的配置。
 
-\subsubsection{module 搜索路径 MODULEPATH}
+\subsubsection{搜索路径 MODULEPATH}
 module 的搜索路径由系统环境变量 MODULEPATH 定义，
 在 MODULEPATH 包含的路径下的 modulefile 文件，
 可以自动被 module 识别。
