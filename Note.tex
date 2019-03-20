@@ -11,11 +11,19 @@
 \fancyhead[L]{\fangsong \leftmark}
 \fancyfoot[R]{\thepage{}}
 
+\usepackage{fontspec}
+\setmonofont{Fira Mono}
+\setsansfont{Consolas}
+\setmainfont{Times New Roman}
+\newfontfamily\fira{Fira Mono}
+\newfontfamily\consolas{Consolas}
+% if no found some fonts, comment it
+
 \usepackage[text={148mm,220mm},centering,includehead,vmarginratio=1:1]{geometry}                    % 设置版面
 \setlength{\headwidth}{\textwidth}                          % 设置页眉宽度
 \setlength{\headheight}{14pt}                               % 设置页眉高度
 
-\title{\vspace{10mm}\heiti\huge 地空系并行机群使用说明\vspace{30mm}}
+\title{\vspace{10mm}\heiti\huge 地空系并行集群使用说明\vspace{30mm}}
 \author{\LARGE\textsc{Tche LIU}\thanks{tcheliu@mail.ustc.edu.cn},
 \textsc{Gongheng ZHANG}\thanks{11749276@mail.sustc.edu.cn}
 \vspace{10mm}}
@@ -37,6 +45,7 @@
 \lstdefinestyle{bashsty}{ %
   backgroundcolor=\color{white},                 % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
   basicstyle=\ttfamily\scriptsize,               % the size of the fonts that are used for the code
+% basicstyle=\consolas\scriptsize,               % the size of the fonts that are used for the code
   breakatwhitespace=false,                       % sets if automatic breaks should only happen at whitespace
   breaklines=true,                               % sets automatic line breaking
   captionpos=b,                                  % sets the caption-position to bottom
@@ -89,10 +98,12 @@
     该磁盘所有用户的用户配额为 1TB，
     当用户的总数据量超过该限制时，
     该用户将无法创建新文件；
-  \item 请注意及时备份机群上的重要数据，
-    本机群不保证用户数据的安全性；
-  \item 本机群虽安装有 matlab 等绘图软件，
-    但不推荐在机群上直接成图，
+  \item 请注意及时备份集群上的重要数据，
+    本集群不保证用户数据的安全性；
+  \item 为规范使用，仅允许用户在其作业运行期间，
+    ssh 登录到相应的计算节点查看作业运行情况；
+  \item 本集群虽安装有 matlab 等绘图软件，
+    但不推荐在集群上直接成图，
     建议将数据拷贝到本地机器上，
     再利用本地机器作图。
 \end{enumerate}
@@ -104,13 +115,13 @@
   \caption{集群队列设置}
   \begin{tabular*}{300pt}{@{\extracolsep{\fill}}ccccc}
     \toprule
-    节点 & 队列 & 核数 & 内存 & 作业最长运行时间 \\
+    节点      & 队列  & 核数 & 内存  & 作业最长运行时间 \\
     \midrule
-    mn01      & dataq & 20 & 62.1G & - \\
-    c001-c028 & short & 28 & 125G & 12:00 \\
-    c001-c028 & long & 28 & 125G & 无限制 \\
-    c029-c042 & large & 24 & 188G & 48:00 \\
-    s001-s002 & smp & 72 & 508G & 24:00 \\
+    mn01      & dataq & 20   & 62.1G & -                \\
+    c001-c028 & short & 28   & 125G  & 12:00            \\
+    c001-c028 & long  & 28   & 125G  & 无限制           \\
+    c029-c042 & large & 24   & 188G  & 48:00            \\
+    s001-s002 & smp   & 72   & 508G  & 24:00            \\
     \bottomrule
   \end{tabular*}
 \end{table}
@@ -118,7 +129,13 @@
 注意，\mynote{mn01} 为主节点，
 禁止在此节点运行作业。
 
+在设置程序使用每节点核数时，
+尽量设置为节点总核数的整除数。
+
 \subsection{查询系统运行情况}
+通过命令 \mynnote{lnodes}，
+可查看系统各节点连接情况。
+
 通过命令 \mynnote{lshosts}，
 可查看系统各节点硬件配置情况。
 
@@ -145,6 +162,8 @@
 
 \subsection{LSF 作业提交}
 \subsubsection{作业提交脚本的书写}
+\insertbash{material/lsf.sh}{LSF 作业提交脚本示例}
+
 在书写作业提交脚本时，LSF 作业系统主要的解析制导指令有：
 \begin{enumerate}[\hspace{15mm}（1）]
   \item \mynnote{\#BSUB -J <作业名>}：指定作业名；
@@ -167,8 +186,6 @@
 另外注意，在编译程序过程中若使用了特别版本的编译器或运行库，
 需在作业提交脚本中通过命令 \mynnote{module load <模块名>}
 加载这些编译器或运行库环境模块。
-
-\insertbash{material/lsf.sh}{LSF 作业提交脚本示例}
 
 \subsubsection{依赖作业提交}
 通过在作业提交脚本头部中加入 \mynnote{\#BSUB -W "<复合作业状态>(<作业号>)"} 的内容，
@@ -377,21 +394,17 @@ module 的搜索路径由系统环境变量 MODULEPATH 定义，
 这样才会被 module 识别为 modulefile 文件。
 
 常用的 modulefile 命令有：
-
-（1）\mynote{module-whatis ``模块描述''}：添加对该 module 的描述信息，
-通过{\em module whatis 模块名}即可查看该描述信息；
-
-（2）\mynote{conflict <模块名>}：如果这里指定的模块已被加载，
-当前定义的模块将不会被加载；
-
-（3）\mynote{set <变量名> <值>}：设置变量，
-这里定义的变量仅在该 modulefile 文件中生效；
-
-（4）\mynote{setenv <系统环境变量名> <值>}：设置系统环境变量，
-将系统环境变量重置。这里定义的变量将在加载该模块后对整个系统生效；
-
-（5）\mynote{prepend-path <系统环境变量名> <新添值>}：设置系统环境变量，
-在原变量值{\em 前}添加新的内容。
+\begin{enumerate}[\hspace{15mm}（1）]
+  \item \mynote{module-whatis "模块描述"}：添加对该 module 的描述信息；
+  \item \mynote{conflict <模块名>}：如果这里指定的模块已被加载，
+    当前定义的模块将不会被加载；
+  \item \mynote{set <变量名> <值>}：设置变量，
+    这里定义的变量仅在该 modulefile 文件中生效；
+  \item \mynote{setenv <系统环境变量名> <值>}：设置系统环境变量，
+    将系统环境变量重置。这里定义的变量将在加载该模块后对整个系统生效；
+  \item \mynote{prepend-path <系统环境变量名> <新添值>}：设置系统环境变量，
+    在原变量值{\em 前}添加新的内容。
+\end{enumerate}
 
 \insertbash{material/module.sh}{modulefile 文件书写示例}
 
@@ -399,18 +412,22 @@ module 的搜索路径由系统环境变量 MODULEPATH 定义，
 
 \subsubsection{module 模块命令}
 module 模块命令有：
+\begin{enumerate}[\hspace{15mm}（1）]
+  \item \mynnote{module avil [模块名]}：查看系统可用的模块；
+  \item \mynnote{module list}：查看已经加载的模块；
+  \item \mynnote{module whatis [模块名]}：查看模块描述信息；
+  \item \mynnote{module load <模块名>}：加载指定模块；
+  \item \mynnote{module unload <模块名>}：卸载指定模块；
+  \item \mynnote{module purge}：卸载所有已加载的模块。
+\end{enumerate}
 
-（1）\mynnote{module avil [模块名]}：查看系统可用的模块；
+例如，我们要调用 intel/2017.8 来编译程序，
+可先由命令 \mynote{module load intel/2017.8} 加载该软件模块环境后，
+即可直接通过命令 icc/ifort 调用该模块的编译器来编译程序。
 
-（2）\mynnote{module list}：查看已经加载的模块；
-
-（3）\mynnote{module whatis [模块名]}：查看模块描述信息；
-
-（4）\mynnote{module load <模块名>}：加载指定模块；
-
-（5）\mynnote{module unload <模块名>}：卸载指定模块；
-
-（6）\mynnote{module purge}：卸载所有已加载的模块。
+此时，若想换用 intel/2018.4 模块，
+可先由命令 \mynote{module unload intel/2017.8} 卸载 intel/2017.8 模块后，
+再由命令 \mynote{module load intel/2018.4} 加载 intel/2018.4 模拟后即可。
 
 \subsubsection{参考阅读}
 \href{https://modules.readthedocs.io/en/stable/module.html}{module 命令手册}：

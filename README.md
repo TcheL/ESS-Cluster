@@ -1,6 +1,6 @@
 # ESS-Cluster
 
-[南科大并行机群使用说明](Note.pdf)
+[南科大并行集群使用说明](Note.pdf)
 
 ## Authors
 
