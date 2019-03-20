@@ -75,7 +75,7 @@
 }
 
 \newcommand{\mynote}[1]{\colorbox{gray!35}{#1}}
-\newcommand{\mynnote}[1]{\colorbox{gray!15}{\color{red}#1}}
+\newcommand{\mynnote}[1]{\colorbox{gray!15}{\color{blue}#1}}
 \newcommand{\insertbash}[2]{\begin{itemize}\item[]\lstinputlisting[caption=#2,label=#1,style=bashsty]{#1}\end{itemize}}
 
 \begin{document}
@@ -240,7 +240,7 @@ LSF 调度系统的基本作业状态有：
 参照前述示例正确书写作业提交脚本 job.lsf 后，
 即可通过命令 \mynnote{bsub < job.lsf} 提交作业。
 正确提交作业后，该命令会返回系统分配的作业号。
-区别于 PBS 作业系统，注意这里的 ``<'' 是必需的。
+区别于 PBS 作业系统，注意{\color{red}\em 这里的“<”是必需的}。
 
 作业提交后，通过命令 \mynnote{bjobs -l <作业号>}，
 可以查看作业状态。
@@ -428,6 +428,11 @@ module 模块命令有：
 此时，若想换用 intel/2018.4 模块，
 可先由命令 \mynote{module unload intel/2017.8} 卸载 intel/2017.8 模块后，
 再由命令 \mynote{module load intel/2018.4} 加载 intel/2018.4 模拟后即可。
+
+另外，在调用 mpi/intel 模块时请注意，
+mpicc/mpif90 实际最终调用的还是 GNU 编译器；
+{\color{red}\em 若想调用 intel 编译器，请使用 mpiicc/mpiifort 命令}，
+此时还需额外加载相应的 intel 编译器模块。
 
 \subsubsection{参考阅读}
 \href{https://modules.readthedocs.io/en/stable/module.html}{module 命令手册}：
