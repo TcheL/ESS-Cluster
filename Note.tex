@@ -24,7 +24,7 @@
 \setlength{\headheight}{14pt}                               % 设置页眉高度
 
 \title{\vspace{10mm}\heiti\huge 地空系并行集群使用说明\vspace{30mm}}
-\author{\LARGE\textsc{Tche LIU}\thanks{tcheliu@mail.ustc.edu.cn},
+\author{\LARGE\textsc{Tche LIU}\thanks{tcheliu@mail.ustc.edu.cn},~
 \textsc{Gongheng ZHANG}\thanks{11749276@mail.sustc.edu.cn}
 \vspace{10mm}}
 \date{\today}
@@ -113,15 +113,15 @@
 \begin{table}[h]
   \centering
   \caption{集群队列设置}
-  \begin{tabular*}{300pt}{@{\extracolsep{\fill}}ccccc}
+  \begin{tabular*}{400pt}{@{\extracolsep{\fill}}ccccccc}
     \toprule
-    节点      & 队列  & 核数 & 内存  & 作业最长运行时间 \\
+    节点      & 队列  & 核数 & 内存  & 作业最长运行时间 & 优先级 & 交互式提交 \\
     \midrule
-    mn01      & dataq & 20   & 62.1G & -                \\
-    c001-c028 & short & 28   & 125G  & 12:00            \\
-    c001-c028 & long  & 28   & 125G  & 无限制           \\
-    c029-c042 & large & 24   & 188G  & 48:00            \\
-    s001-s002 & smp   & 72   & 508G  & 24:00            \\
+    mn01      & dataq & 20   & 62.1G & -      & 33 & 禁止 \\
+    c001-c028 & short & 28   & 125G  & 12:00  & 40 & 禁止 \\
+    c001-c028 & long  & 28   & 125G  & 无限制 & 30 & 允许 \\
+    c029-c042 & large & 24   & 188G  & 48:00  & 30 & 禁止 \\
+    s001-s002 & smp   & 72   & 508G  & 24:00  & 20 & 禁止 \\
     \bottomrule
   \end{tabular*}
 \end{table}
@@ -273,11 +273,11 @@ LSF 调度系统的基本作业状态有：
 此时，还可以通过作业号查看作业的运行记录。
 
 \subsection{参考阅读}
-\href{http://10.20.102.13/ref/lsf_users_guide_v10.1.pdf}{LSF 用户手册}：
-http://10.20.102.13/ref/lsf\_users\_guide\_v10.1.pdf
+\href{http://hpc.sustech.edu.cn/ref/lsf_users_guide_v10.1.pdf}{LSF 用户手册}：
+http://hpc.sustech.edu.cn/ref/lsf\_users\_guide\_v10.1.pdf
 
-\href{http://10.20.102.13/ref/TaiYi_User_Manual_v0.1.pdf}{太乙用户手册}：
-http://10.20.102.13/ref/TaiYi\_User\_Manual\_v0.1.pdf
+\href{http://hpc.sustech.edu.cn/ref/TaiYi_User_Manual_v0.1.pdf}{太乙用户手册}：
+http://hpc.sustech.edu.cn/ref/TaiYi\_User\_Manual\_v0.1.pdf
 
 \href{https://www.ibm.com/support/knowledgecenter/en/SSWRJV_10.1.0/lsf_welcome/lsf_welcome.html}{IBM Spectrum LSF V10.1 documentation}:
 https://www.ibm.com/support/\newline
