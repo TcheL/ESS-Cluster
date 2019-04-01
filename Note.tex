@@ -37,7 +37,7 @@
 \usepackage{nicefrac}										% 斜分数宏包 for \nicefrac 斜分数命令
 \usepackage{amssymb}										% 数学字符宏包 for 黑色方块和三角
 
-\usepackage[colorlinks,linkcolor=blue,anchorcolor=yellow,citecolor=green]{hyperref}      % hyperreference package
+\usepackage[colorlinks,urlcolor=blue,linkcolor=blue,anchorcolor=yellow,citecolor=green]{hyperref}      % hyperreference package
 \usepackage{graphicx}                                       % 绘图宏包 for \includegrahpics 命令
 \usepackage{booktabs}                                       % for \toprule, \midrule and \bottomrule
 
@@ -75,7 +75,7 @@
 }
 
 \newcommand{\mynote}[1]{\colorbox{gray!35}{#1}}
-\newcommand{\mynnote}[1]{\colorbox{gray!15}{\color{blue}#1}}
+\newcommand{\mynnote}[1]{\colorbox{gray!15}{\color{blue!65}#1}}
 \newcommand{\insertbash}[2]{\begin{itemize}\item[]\lstinputlisting[caption=#2,label=#1,style=bashsty]{#1}\end{itemize}}
 
 \begin{document}
@@ -101,7 +101,8 @@
   \item 请注意及时备份集群上的重要数据，
     本集群不保证用户数据的安全性；
   \item 为规范使用，仅允许用户在其作业运行期间，
-    ssh 登录到相应的计算节点查看作业运行情况；
+    ssh 登录到相应的计算节点查看作业运行情况，
+    其他时间已设置为禁止登录；
   \item 本集群虽安装有 matlab 等绘图软件，
     但不推荐在集群上直接成图，
     建议将数据拷贝到本地机器上，
@@ -162,7 +163,8 @@
 
 \subsection{LSF 作业提交}
 \subsubsection{作业提交脚本的书写}
-\insertbash{material/lsf.sh}{LSF 作业提交脚本示例}
+\insertbash{material/mpi.lsf}{MPI 并行作业提交脚本示例}
+\insertbash{material/openmp.lsf}{OpenMP 并行作业提交脚本示例}
 
 在书写作业提交脚本时，LSF 作业系统主要的解析制导指令有：
 \begin{enumerate}[\hspace{15mm}（1）]
@@ -174,7 +176,7 @@
   \item \mynnote{\#BSUB -R "<描述信息>"}：指定资源限制，
     这里的{\em 描述信息}可以为：\newline
     \mynnote{span[ptile=<每个节点的核数>]} 指定每节点使用核数、\newline
-    \mynnote{span[phost=<节点数>]} 指定使用节点数、\newline
+    \mynnote{span[hosts=<节点数>]} 指定使用节点数、\newline
     \mynnote{rusage[mem=<每个节点的内存限制>]} 指定每核可用内存最低限制、\newline
     等内容；
   \item \mynnote{\#BSUB -W <挂钟时间>}：指定作业最长运行时间，
@@ -188,7 +190,7 @@
 加载这些编译器或运行库环境模块。
 
 \subsubsection{依赖作业提交}
-通过在作业提交脚本头部中加入 \mynnote{\#BSUB -W "<复合作业状态>(<作业号>)"} 的内容，
+通过在作业提交脚本头部中加入 \mynnote{\#BSUB -w "<复合作业状态>(<作业号>)"} 的内容，
 可以实现相互依赖的多个作业任务的提交。
 当指定作业达到指定状态时，
 当前作业才会被派发。
@@ -365,7 +367,9 @@ GMT/5.4.5 （/share/tools/GMT/5.4.5 目录）。
 系统默认的 git/1.8.3.1 （系统标准安装目录）、\newline
 git/2.18.0 （/share/base/git/2.18 目录）、\newline
 htop/2.2.0 （/share/base/htop/2.2.0 目录）、\newline
-parallel/20180922 （即 GNU Parallel，/share/base/parallel 目录）。
+parallel/20180922 （即 GNU Parallel，/share/base/parallel 目录）、\newline
+ghostscript/9.26 （/share/tools/ghostscript/9.26 目录）、\newline
+feh/3.1.3 （/share/tools/feh/3.1.3 目录）。
 
 \subsection{module 的使用}
 当在 Linux 下存在多个版本的同一个编译器或运行库时，

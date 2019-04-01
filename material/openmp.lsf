@@ -1,0 +1,15 @@
+#!/bin/bash
+#BSUB -J OpenMPJob           ### set the job name
+#BSUB -q short               ### specify queue
+#BSUB -n 20                  ### ask for number of cores (default: 1)
+#BSUB -R "span[hosts=1]"     ### specify that the cores MUST BE on a single host!
+#BSUB -W 10:00               ### set walltime limit: hh:mm
+#BSUB -o std_%J.out          ### specify the output and error file. $J is the job-id
+#BSUB -e std_$J.err          ### -o and -e mean append, -oo and -eo mean overwrite
+
+# set OMP_NUM_THREADS and export!
+export OMP_NUM_THREADS=$LSB_DJOB_NUMPROC
+
+# run your program
+./Your_OpenMP_Program [options]
+
