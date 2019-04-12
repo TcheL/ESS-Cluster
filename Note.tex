@@ -181,9 +181,11 @@
   \item \mynnote{\#BSUB -R "<描述信息>"}：指定资源限制，
     这里的{\em 描述信息}可以为：\newline
     \mynnote{span[ptile=<每个节点的核数>]} 指定每节点使用核数、\newline
-    \mynnote{span[hosts=<节点数>]} 指定使用节点数、\newline
+    \mynnote{span[hosts=1]} 指定使用一个节点、\newline
     \mynnote{rusage[mem=<每个节点的内存限制>]} 指定每核可用内存最低限制、\newline
     等内容；
+  \item \mynnote{\#BSUB -m "<节点列表>"}：指定作业运行节点，
+    多个节点以空格分隔；
   \item \mynnote{\#BSUB -W <挂钟时间>}：指定作业最长运行时间，
     时间格式为 hh:mm；
   \item \mynnote{\#BSUB -o <标准输出文件名>}：指定标准输出文件；
@@ -202,8 +204,6 @@
 
 这里的{\em 复合作业状态}可以设置为：
 \begin{enumerate}[\hspace{15mm}（1）]
-  \item started: 指定作业开始运行或已完成，
-    即基本作业状态除 PEND 和 PSUSP 之外的其他状态；
   \item done: 基本作业状态 DONE；
   \item ended: 基本作业状态 EXIT 或 DONE；
   \item exit: 基本作业状态 EXIT，
@@ -465,7 +465,7 @@ https://blog.csdn.net/jslove1997/article/details/80338370
 \section{常见问题解决}
 \subsection{作业运行问题}
 若使用 mpi/intel/* 模块编译运行并行程序，
-出错程序异常退出并报错“unexpected DAPL connection event 0x4008”时，
+程序异常退出并报错“unexpected DAPL connection event 0x4008”时，
 可尝试使用其他版本的 MPI 库来编译运行。
 
 \end{document}

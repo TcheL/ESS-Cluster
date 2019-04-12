@@ -3,6 +3,7 @@
 #BSUB -q short               ### specify queue
 #BSUB -n 20                  ### ask for number of cores (default: 1)
 #BSUB -R "span[hosts=1]"     ### specify that the cores MUST BE on a single host!
+#BSUB -m "c001"              ### specify the host that the job will run on
 #BSUB -W 10:00               ### set walltime limit: hh:mm
 #BSUB -o std_%J.out          ### specify the output and error file. $J is the job-id
 #BSUB -e std_$J.err          ### -o and -e mean append, -oo and -eo mean overwrite
