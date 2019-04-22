@@ -24,7 +24,7 @@
 \setlength{\headheight}{14pt}                               % 设置页眉高度
 
 \title{\vspace{10mm}\heiti\huge 地空系并行集群使用说明\vspace{30mm}}
-\author{\LARGE\textsc{Tche LIU}\thanks{tcheliu@mail.ustc.edu.cn},~
+\author{\LARGE\textsc{Tche LIU}\thanks{tcheliu@mail.ustc.edu.cn}\hspace{10mm}
 \textsc{Gongheng ZHANG}\thanks{11749276@mail.sustc.edu.cn}
 \vspace{10mm}}
 \date{\today}
@@ -124,7 +124,7 @@
     节点      & 队列  & 核数 & 内存  & 作业最长运行时间 & 优先级 & 交互式提交 \\
     \midrule
     mn01      & dataq & 20   & 62.1G & -      & 33 & 禁止 \\
-    c001-c028 & short & 28   & 125G  & 12:00  & 40 & 禁止 \\
+    c001-c028 & short & 28   & 125G  & 12:00  & 40 & 允许 \\
     c001-c028 & long  & 28   & 125G  & 无限制 & 30 & 允许 \\
     c029-c042 & large & 24   & 188G  & 48:00  & 30 & 禁止 \\
     s001-s002 & smp   & 72   & 508G  & 24:00  & 20 & 禁止 \\
@@ -383,7 +383,10 @@ parallel/20180922 （即 GNU Parallel，/share/base/parallel 目录）、\newlin
 ghostscript/9.26 （/share/tools/ghostscript/9.26 目录）、\newline
 feh/3.1.3 （/share/tools/feh/3.1.3 目录）、\newline
 valgrind/3.14.0 （/share/tools/valgrind/3.14.0 目录）、\newline
-ImageMagick/7.0.8-39 （/share/tools/ImageMagick/7.0.8-39 目录）。
+ImageMagick/7.0.8-39 （/share/tools/ImageMagick/7.0.8-39 目录）、\newline
+autojump/22.5.3 （/share/tools/autojump/22.5.4 目录，在加载此模块后，
+还需再执行命令 {\em source \$AUTOJUMPROOT/.autojump/etc/profile.d/autojump.sh}，
+方可调用 j 命令快速跳转目录）。
 
 \subsection{module 的使用}
 当在 Linux 下存在多个版本的同一个编译器或运行库时，
