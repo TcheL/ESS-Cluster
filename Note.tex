@@ -85,7 +85,7 @@
   \includegraphics[width=125mm]{material/esslogo.png}
 \end{figure}
 \maketitle
-\centerline{Version: 0.2}
+\centerline{Version: 0.3}
 \newpage
 
 \tableofcontents
@@ -196,6 +196,8 @@
 需在作业提交脚本中通过命令 \mynnote{module load <模块名>}
 加载这些编译器或运行库环境模块。
 
+示例脚本见集群上 /share/system/reference 目录下。
+
 \subsubsection{依赖作业提交}
 通过在作业提交脚本头部中加入 \mynnote{\#BSUB -w "<复合作业状态>(<作业号>)"} 的内容，
 可以实现相互依赖的多个作业任务的提交。
@@ -276,8 +278,8 @@ LSF 调度系统的基本作业状态有：
 通过命令 \mynnote{bpeek <作业号>}，
 用户可以查看自己的未完成作业的标准输出和错误输出。
 
-在作业完成后，LSF 系统会保留作业记录 5 分钟，
-此时，还可以通过作业号查看作业的运行记录。
+在作业完成后，LSF 系统会保留作业记录 1 小时，
+此时段内，还可以通过作业号查看作业的运行记录。
 
 \subsection{参考阅读}
 \href{http://hpc.sustech.edu.cn/ref/lsf_users_guide_v10.1.pdf}{LSF 用户手册}：
@@ -467,8 +469,19 @@ https://blog.csdn.net/jslove1997/article/details/80338370
 
 \section{常见问题解决}
 \subsection{作业运行问题}
-若使用 mpi/intel/* 模块编译运行并行程序，
-程序异常退出并报错“unexpected DAPL connection event 0x4008”时，
-可尝试使用其他版本的 MPI 库来编译运行。
+\begin{enumerate}[\hspace{10mm}1、]
+  \item 若使用 mpi/intel/* 模块编译运行并行程序，
+    程序异常退出并报错“unexpected DAPL connection event 0x4008”时，
+    可尝试使用其他版本的 MPI 库来编译运行。
+  \item 使用 zsh 的用户，在提交作业时，
+    若出现 module 命令找不到的问题，
+    可以在提交脚本头部加入指令 \mynnote{\#BSUB -L /bin/bash}，
+    以指定作业系统采用 bash 解析脚本。
+  \item 如有特殊需求，如测试程序计算效率，
+    需排外地独占节点运行程序，
+    在提交脚本头部加入指令 \mynnote{\#BSUB -x} 即可。
+    另需注意，目前仅 short 队列支持独占节点作业的提交，
+    还请勿恶意提交独占节点作业，以免资源浪费。
+\end{enumerate}
 
 \end{document}
