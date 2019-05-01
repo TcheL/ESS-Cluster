@@ -74,6 +74,7 @@
   tabsize=2,	                                 % sets default tabsize to 2 spaces
 }
 
+\newcommand{\myem}[1]{{\color{red}\em #1}}
 \newcommand{\mynote}[1]{\colorbox{gray!35}{#1}}
 \newcommand{\mynnote}[1]{\colorbox{gray!15}{\color{blue!65}#1}}
 \newcommand{\insertbash}[2]{\begin{itemize}\item[]\lstinputlisting[caption=#2,label=#1,style=bashsty]{#1}\end{itemize}}
@@ -85,7 +86,7 @@
   \includegraphics[width=125mm]{material/esslogo.png}
 \end{figure}
 \maketitle
-\centerline{Version: 0.3}
+\centerline{Version: 0.4}
 \newpage
 
 \tableofcontents
@@ -249,7 +250,7 @@ LSF 调度系统的基本作业状态有：
 参照前述示例正确书写作业提交脚本 job.lsf 后，
 即可通过命令 \mynnote{bsub < job.lsf} 提交作业。
 正确提交作业后，该命令会返回系统分配的作业号。
-区别于 PBS 作业系统，注意{\color{red}\em 这里的“<”是必需的}。
+区别于 PBS 作业系统，注意 \myem{这里的“<”是必需的}。
 
 作业提交后，通过命令 \mynnote{bjobs -l <作业号>}，
 可以查看作业状态。
@@ -454,7 +455,7 @@ module 模块命令有：
 
 另外，在调用 mpi/intel 模块时请注意，
 mpicc/mpif90 实际最终调用的还是 GNU 编译器；
-{\color{red}\em 若想调用 intel 编译器，请使用 mpiicc/mpiifort 命令}，
+\myem{若想调用 intel 编译器，请使用 mpiicc/mpiifort 命令}，
 此时还需额外加载相应的 intel 编译器模块。
 
 \subsubsection{参考阅读}
@@ -466,6 +467,28 @@ https://modules.readthedocs.io/en/stable/modulefile.html
 
 \href{https://blog.csdn.net/jslove1997/article/details/80338370}{module 简单使用}：
 https://blog.csdn.net/jslove1997/article/details/80338370
+
+\section{其他服务}
+\subsection{公共数据}
+所有数据均有来源，烦请大家在使用这些数据时，
+正确合理地 \myem{致谢或引用相应的数据来源}。
+
+\subsubsection{SRTM-DEM 全球地形数据}
+SRTM（即 Shuttle Radar Topography Mission）项目
+根据获取的雷达影像处理制成了 DEM（即 Digital Elevation Model），
+\href{https://blog.seisman.info/srtm/}{此处} 有更多详细介绍。
+在服务器 /share/data/SRTM-DEM/ 目录下，
+分别存放有 SRTM30+（topo30.grd）和
+SRTM15+（topo15.grd 和 SRTM15+V2.nc）全球地形起伏数据，
+引用分别见：
+
+\href{https://topex.ucsd.edu/WWW_html/srtm30_plus.html}{srtm30+ 主页}：
+https://topex.ucsd.edu/WWW\_html/srtm30\_plus.html
+
+\href{https://topex.ucsd.edu/WWW_html/srtm15_plus.html}{srtm15+ 主页}：
+https://topex.ucsd.edu/WWW\_html/srtm15\_plus.html
+
+
 
 \section{常见问题解决}
 \subsection{作业运行问题}
