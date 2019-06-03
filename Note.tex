@@ -86,7 +86,7 @@
   \includegraphics[width=125mm]{material/esslogo.png}
 \end{figure}
 \maketitle
-\centerline{Version: 0.4}
+\centerline{Version: 0.5}
 \newpage
 
 \tableofcontents
@@ -281,6 +281,21 @@ LSF 调度系统的基本作业状态有：
 
 在作业完成后，LSF 系统会保留作业记录 1 小时，
 此时段内，还可以通过作业号查看作业的运行记录。
+
+\subsubsection{动态优先级策略}
+LSF 作业系统采用队列用户 \myem{动态优先级} 策略，
+即系统会根据某一用户在某一队列的累积使用的 CPU 核时和作业占用的系统资源的多少，
+动态地实时调整该用户在该队列的优先级。
+用户累积使用的核时越多，
+占用的系统资源越多，
+则在该队列的优先级越低。
+
+通过命令 \mynnote{bqueues -l <队列名>}，
+用户可以查看所有使用过该队列的用户在该队列的队列优先级。
+
+在集群系统重启时，
+系统调整的动态优先级会被重置，
+即此时所有普通用户重新拥有相同的队列优先级。
 
 \subsection{参考阅读}
 \href{http://hpc.sustech.edu.cn/ref/lsf_users_guide_v10.1.pdf}{LSF 用户手册}：
