@@ -86,7 +86,7 @@
   \includegraphics[width=125mm]{material/esslogo.png}
 \end{figure}
 \maketitle
-\centerline{Version: 0.5}
+\centerline{Version: 0.6}
 \newpage
 
 \tableofcontents
@@ -378,7 +378,8 @@ petsc （/share/base/petsc 目录）。
 
 \subsubsection{工具}
 系统安装的专业工具有：\newline
-SAC/101.6a （/share/tools/SAC/101.6a 目录）。
+SAC/101.6a （/share/tools/SAC/101.6a 目录）、\newline
+mseed2sac/2.2 （/share/tools/mseed2sac/2.2 目录）。
 \bigskip
 
 系统安装的绘图工具有：\newline
@@ -505,16 +506,29 @@ https://topex.ucsd.edu/WWW\_html/srtm30\_plus.html
 \href{https://topex.ucsd.edu/WWW_html/srtm15_plus.html}{srtm15+ 主页}：
 https://topex.ucsd.edu/WWW\_html/srtm15\_plus.html
 
-\subsubsection{CENC 2013-2014 连续波形数据}
+\subsubsection{CENC 2013-2016 连续波形数据}
 在服务器 /share/data/CENC/ 目录下，
 存放有 CENC（即中国地震台网中心）全国范围部分台站
 自 2013 年 1 月起至 2016 年 12 月止
-（除部分月份外，目前数据资料还在不断补齐中）
-的连续波形数据。
+（除部分敏感事件日期外，目前数据资料还在不断补齐中）
+的原始连续波形数据。
 由于涉密的原因，仅向保密协议范围内的使用者开放。
 如有需要，在向管理员提出申请，
-完成身份权限审核后，即可使用。
+签署保密协议后，即可使用。
 
+此外，/share/data/CENC\_SAC/ 目录下存放有
+由 /share/data/CENC/ 目录原始数据预处理得到的 sac 格式数据。
+预处理的目的主要是将原始 miniSEED 数据转存为更易于后续处理的 sac 格式，
+同时对原始数据做降采样处理。
+原始数据中大部分台站的采样频率为 100 Hz，
+降采样后的采样频率主要为 10 Hz。
+由于数据质量和软件缺陷的原因，
+部分原始 miniSEED 文件未能成功生成 sac 文件。
+在 runlog/ 子目录下存放有各数据目录预处理过程产生的日志文件 run.log，
+该文件记录了原始 miniSEED 文件转存成功与否。
+
+对于单个原始 miniSEED 文件的预处理流程及参数如下例所示：
+\insertbash{material/cencpp.sh}{CENC 波形数据预处理示例}
 
 \section{常见问题解决}
 \subsection{作业运行问题}
