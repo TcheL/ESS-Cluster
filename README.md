@@ -2,6 +2,8 @@
 
 [南科大地空系并行集群使用说明](Note.pdf)
 
+![ESS](material/esslogo.png)
+
 ## Authors
 
 Tche LIU, tcheliu@mail.ustc.edu.cn

@@ -508,24 +508,34 @@ https://topex.ucsd.edu/WWW\_html/srtm15\_plus.html
 
 \subsubsection{CENC 2013-2016 连续波形数据}
 在服务器 /share/data/CENC/ 目录下，
-存放有 CENC（即中国地震台网中心）全国范围部分台站
+按月存放有 CENC（即中国地震台网中心）全国范围部分台站
 自 2013 年 1 月起至 2016 年 12 月止
-（除部分敏感事件日期外，目前数据资料还在不断补齐中）
-的原始连续波形数据。
+（除部分敏感事件日期外）的原始连续波形数据。
 由于涉密的原因，仅向保密协议范围内的使用者开放。
 如有需要，在向管理员提出申请，
 签署保密协议后，即可使用。
 
 此外，/share/data/CENC\_SAC/ 目录下存放有
-由 /share/data/CENC/ 目录原始数据预处理得到的 sac 格式数据。
-预处理的目的主要是将原始 miniSEED 数据转存为更易于后续处理的 sac 格式，
+由 /share/data/CENC/ 目录原始数据经预处理得到的 sac 格式数据。
+预处理的目的主要是将原始 miniSEED 格式数据转存为更易于后续处理的 sac 格式，
 同时对原始数据做降采样处理。
 原始数据中大部分台站的采样频率为 100 Hz，
-降采样后的采样频率主要为 10 Hz。
+降采样后对应的采样频率为 10 Hz。
 由于数据质量和软件缺陷的原因，
 部分原始 miniSEED 文件未能成功生成 sac 文件。
-在 runlog/ 子目录下存放有各数据目录预处理过程产生的日志文件 run.log，
-该文件记录了原始 miniSEED 文件转存成功与否。
+在 /share/data/CENC\_SAC/runlog/ 目录下的各月份目录中存有以下文件：
+\begin{enumerate}[\hspace{15mm}（1）]
+  \item 预处理过程中使用的作业提交脚本 \mynote{m2s.lsf}，
+    它调用 ms2spm.par.sh 脚本（内部调用 process.sh 脚本）并行执行预处理操作；
+  \item 预处理过程产生的日志文件 \mynote{run.log}，
+    它记录了原始 miniSEED 格式文件转存成功与否；
+  \item 预处理结果统计检查脚本 \mynote{check.sh}，
+    它可以统计给出当前月份目录数据预处理转存的失败率；
+  \item 预处理转存成功的原始数据文件列表 \mynote{finish.list}，
+    它记录了所有成功得到 sac 格式文件的当前月份原始数据文件；
+  \item 预处理转存失败的原始数据文件列表 \mynote{fail.list}，
+    它记录了所有未能得到 sac 格式文件的当前月份原始数据文件。
+\end{enumerate}
 
 对于单个原始 miniSEED 文件的预处理流程及参数如下例所示：
 \insertbash{material/cencpp.sh}{CENC 波形数据预处理示例}
