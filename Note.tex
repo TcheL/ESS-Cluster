@@ -183,6 +183,7 @@
     这里的{\em 描述信息}可以为：\newline
     \mynnote{span[ptile=<每个节点的核数>]} 指定每节点使用核数、\newline
     \mynnote{span[hosts=1]} 指定使用一个节点、\newline
+    \mynnote{select[hname!='c001']} 强制不使用 c001 节点、\newline
     \mynnote{rusage[mem=<每个节点的内存限制>]} 指定每核可用内存最低限制、\newline
     等内容；
   \item \mynnote{\#BSUB -m "<节点列表>"}：指定作业运行节点，
