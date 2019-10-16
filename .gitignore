@@ -10,3 +10,6 @@ Backup.tar.gz
 *.toc
 *.synctex.gz
 *.tex.bak
+*.fdb_latexmk
+*.xdv
+*.fls

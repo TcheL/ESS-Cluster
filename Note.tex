@@ -101,7 +101,7 @@
   \item 提交作业时烦请注意队列的提交限制，
     以防提交无效作业；
   \item 用户 HOME 目录所在磁盘 share 为全节点共享，
-    该磁盘所有用户的用户配额为 1TB，
+    该磁盘所有用户的用户硬限制配额为 1.5 TB，
     当用户的总数据量超过该限制时，
     该用户将无法创建新文件；
   \item 请注意及时备份集群上的重要数据，
@@ -198,7 +198,7 @@
 需在作业提交脚本中通过命令 \mynnote{module load <模块名>}
 加载这些编译器或运行库环境模块。
 
-示例脚本见集群上 /share/system/reference 目录下。
+示例脚本见集群上 /share/system/reference/ 目录下。
 
 \subsubsection{依赖作业提交}
 通过在作业提交脚本头部中加入 \mynnote{\#BSUB -w "<复合作业状态>(<作业号>)"} 的内容，
@@ -211,7 +211,7 @@
   \item done: 基本作业状态 DONE；
   \item ended: 基本作业状态 EXIT 或 DONE；
   \item exit: 基本作业状态 EXIT，
-    可通过 \mynnote{(<作业号>,[操作符] <退出码>)} 指定特殊的退出码，
+    可通过 \mynnote{exit(<作业号>,[操作符] <退出码>)} 指定特殊的退出码，
     这里的{\em 操作符}可以设为 >、>=、<、<=、== 或 !=；
   \item started: 基本作业状态 DONE、EXIT、USUSP、SSUSP 或 RUN。
 \end{enumerate}
@@ -230,13 +230,13 @@ LSF 调度系统的基本作业状态有：
   \item PSUSP: 被用户自己或管理员在派发前挂起；
   \item USUSP: 被用户自己或管理员在派发后挂起；
   \item SSUSP: 被 LSF 系统在派发后挂起；
-  \item EXIT: 被异常终止，或程序退出码非 0。
+  \item EXIT: 被异常中止，或程序退出码非 0。
 \end{enumerate}
 
 被用户自己或管理员挂起的作业不会被系统自动派发；
 被系统挂起的作业待满足运行条件后系统会自动派发。
 
-作业被系统挂起的原因有：
+作业被系统挂起的原因可能有：
 该作业依赖于其他待完成作业、
 该作业在队列中的优先级较低、
 没有足够的计算资源等。
@@ -281,7 +281,7 @@ LSF 调度系统的基本作业状态有：
 用户可以查看自己的未完成作业的标准输出和错误输出。
 
 在作业完成后，LSF 系统会保留作业记录 1 小时，
-此时段内，还可以通过作业号查看作业的运行记录。
+此时间段内，还可以通过作业号查看作业的运行记录。
 
 \subsubsection{动态优先级策略}
 LSF 作业系统采用队列用户 \myem{动态优先级} 策略，
@@ -293,7 +293,7 @@ LSF 作业系统采用队列用户 \myem{动态优先级} 策略，
 系统会优先派发高优先级用户提交的作业。
 
 每个队列单独进行统计计算，同一用户在不同队列上拥有不同的动态优先级。
-通过命令 \mynnote{bqueues -l <队列名>}，
+通过命令 \mynnote{bqueues -l [队列名]}，
 用户可以查看所有使用过该队列的用户在该队列的动态优先级。
 
 目前，系统收集用户资源消耗历史的时间长度设置为 5 小时，
@@ -378,6 +378,9 @@ LAPACK （/share/base/netlib/LAPACK 目录）、\newline
 petsc （/share/base/petsc 目录）。
 
 \subsubsection{工具}
+所有编译安装的工具软件都是调用 gcc/4.8.5 编译器完成安装的。
+\bigskip
+
 系统安装的专业工具有：\newline
 SAC/101.6a （/share/tools/SAC/101.6a 目录）、\newline
 mseed2sac/2.2 （/share/tools/mseed2sac/2.2 目录）。
@@ -422,7 +425,7 @@ intel/2017.8、intel/2018.3 和 intel/2018.4。
 此时若要改为调用 intel/2018.4，
 又要再次修改这些环境变量，
 容易造成混乱。
-使用 module 则可以通过方便地 modulefile 进行系统环境变量的配置。
+使用 module 则可以方便地通过 modulefile 进行系统环境变量的配置。
 
 \subsubsection{搜索路径 MODULEPATH}
 module 的搜索路径由系统环境变量 MODULEPATH 定义，
@@ -470,7 +473,7 @@ module 模块命令有：
 
 此时，若想换用 intel/2018.4 模块，
 可先由命令 \mynote{module unload intel/2017.8} 卸载 intel/2017.8 模块后，
-再由命令 \mynote{module load intel/2018.4} 加载 intel/2018.4 模拟后即可。
+再由命令 \mynote{module load intel/2018.4} 加载 intel/2018.4 模块后即可。
 
 另外，在调用 mpi/intel 模块时请注意，
 mpicc/mpif90 实际最终调用的还是 GNU 编译器；
