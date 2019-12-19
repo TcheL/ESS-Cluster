@@ -1,3 +1,4 @@
+%! TEX program = xelatex
 \documentclass[UTF8]{ctexart}
 \usepackage{xcolor}
 \definecolor{mygrn}{rgb}{0,0.6,0}
@@ -124,20 +125,36 @@
     \toprule
     节点      & 队列  & 核数 & 内存  & 作业最长运行时间 & 优先级 & 交互式提交 \\
     \midrule
-    mn01      & dataq & 20   & 62.1 G & -      & 33 & 禁止 \\
-    c001-c028 & short & 28   & 100 G  & 12:00  & 40 & 允许 \\
-    c001-c028 & long  & 28   & 100 G  & 无限制 & 30 & 允许 \\
-    c029-c042 & large & 24   & 170 G  & 48:00  & 30 & 禁止 \\
-    s001-s002 & smp   & 72   & 480 G  & 24:00  & 20 & 禁止 \\
+    c002-c005 & ser   & 28   & 100 G  & 120:00 & 40 & 允许 \\
+    c004-c028 & short & 28   & 100 G  & 36:00  & 40 & 允许 \\
+    c029-c042 & large & 24   & 170 G  & 24:00  & 30 & 禁止 \\
+    c043-c047 & long  & 32   & 170 G  & 120:00 & 20 & 禁止 \\
+    s001-s002 & smp   & 72   & 480 G  & 12:00  & 20 & 禁止 \\
     \bottomrule
   \end{tabular*}
 \end{table}
 
-注意，\mynote{mn01} 为主节点，
-禁止在此节点运行作业。
+注意：
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parsep}{0pt}
+  \setlength{\parskip}{0pt}
 
-在设置程序使用每节点核数时，
-尽量设置为节点总核数的整除数。
+  \item \mynote{c001} 为专用节点，
+  供用户运行 matlab 等占用资源较多的大型软件，
+  无需提交作业可直接运行单核的简单数据处理或绘图程序；
+  \myem{禁止在登录节点 \mynote{\rm mn01} 上运行此类软件。}
+
+  \item \mynote{ser} 为 \myem{串行队列} ，
+  仅允许向该队列提交单核串行任务，
+  任何并行作业都会被强制中止运行；
+  其它节点为 \myem{并行队列} ，
+  原则上不允许提交串行任务，
+  影响到并行作业运行的串行作业会被强制中止运行。
+
+  \item 在设置程序使用每节点核数时，
+  尽量设置为节点总核数的整除数。
+\end{itemize}
 
 \subsection{查询系统运行情况}
 通过命令 \mynnote{lnodes}，
