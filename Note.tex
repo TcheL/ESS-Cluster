@@ -140,15 +140,15 @@
   \setlength{\parsep}{0pt}
   \setlength{\parskip}{0pt}
 
-  \item \mynote{c001} 为专用节点，
+  \item 节点 \mynote{c001} 为专用节点，
   供用户运行 matlab 等占用资源较多的大型软件，
   无需提交作业可直接运行单核的简单数据处理或绘图程序；
   \myem{禁止在登录节点 \mynote{\rm mn01} 上运行此类软件。}
 
-  \item \mynote{ser} 为 \myem{串行队列} ，
+  \item 队列 \mynote{ser} 为 \myem{串行队列} ，
   仅允许向该队列提交单核串行任务，
   任何并行作业都会被强制中止运行；
-  其它节点为 \myem{并行队列} ，
+  其它队列均为 \myem{并行队列} ，
   原则上不允许提交串行任务，
   影响到并行作业运行的串行作业会被强制中止运行。
 
@@ -580,8 +580,8 @@ earth\_relief 地形数据是由 \href{https://www.generic-mapping-tools.org}{GM
 存放有该数据集中 $1^\circ$ 至 $15''$ 多种精度的原始数据。
 更多详细介绍及数据引用请参考：
 
-\href{https://docs.gmt-china.org/6.0/dataset/earth_relief}{earth\_relief 中文介绍}：
-https://docs.gmt-china.org/6.0/dataset/earth\_relief
+\href{https://docs.gmt-china.org/latest/dataset/earth-relief}{earth\_relief 中文介绍}：
+https://docs.gmt-china.org/latest/dataset/earth-relief
 
 \href{https://docs.generic-mapping-tools.org/6.0/datasets/earth_relief.html}{earth\_relief 英文主页}：
 https://docs.generic-mapping-tools.org/6.0/datasets/earth\_relief.html
