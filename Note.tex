@@ -121,15 +121,15 @@
 \begin{table}[h]
   \centering
   \caption{集群队列设置}
-  \begin{tabular*}{400pt}{@{\extracolsep{\fill}}ccccccc}
+  \begin{tabular*}{412pt}{@{\extracolsep{\fill}}cccccccc}
     \toprule
-    节点      & 队列  & 核数 & 内存  & 作业最长运行时间 & 优先级 & 交互式提交 \\
+    节点      & 队列  & 核数 & 内存  & 作业时长限制 & 作业核数限制 & 优先级 & 交互式提交 \\
     \midrule
-    c002-c005 & ser   & 28   & 100 G  & 120:00 & 40 & 允许 \\
-    c004-c028 & short & 28   & 100 G  & 36:00  & 40 & 允许 \\
-    c029-c042 & large & 24   & 170 G  & 24:00  & 30 & 禁止 \\
-    c043-c047 & long  & 32   & 170 G  & 120:00 & 20 & 禁止 \\
-    s001-s002 & smp   & 72   & 480 G  & 12:00  & 20 & 禁止 \\
+    c002-c005 & ser   & 28   & 100 G  & 120:00 &  5 核以下  & 40 & 允许 \\
+    c004-c028 & short & 28   & 100 G  & 36:00  &   无限制   & 40 & 允许 \\
+    c029-c042 & large & 24   & 170 G  & 24:00  & 100 核以上 & 30 & 禁止 \\
+    c043-c047 & long  & 32   & 170 G  & 120:00 &   无限制   & 20 & 禁止 \\
+    s001-s002 & smp   & 72   & 480 G  & 12:00  &   无限制   & 20 & 禁止 \\
     \bottomrule
   \end{tabular*}
 \end{table}
@@ -395,7 +395,10 @@ netcdf-fortran （/share/base/netcdf-fortran 目录）、\newline
 netcdf-cxx （/share/base/netcdf-cxx 目录）、\newline
 BLAS （/share/base/netlib/BLAS 目录）、\newline
 LAPACK （/share/base/netlib/LAPACK 目录）、\newline
-petsc （/share/base/petsc 目录）。
+petsc （/share/base/petsc 目录）、\newline
+SuperLU （/share/base/SuperLU 目录）、\newline
+SuiteSparse （/share/base/SuiteSparse 目录）、\newline
+eigen （/share/base/eigen 目录）。
 
 \subsubsection{工具}
 所有编译安装的工具软件都是调用 gcc/4.8.5 编译器完成安装的。
