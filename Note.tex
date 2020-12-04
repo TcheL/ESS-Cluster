@@ -96,7 +96,7 @@
 \section{注意事项}
 \begin{enumerate}[\hspace{15mm}（1）]
   \item 严禁在任何节点直接运行并行程序，
-    所有多核任务必需经由作业系统提交运行；
+    所有多核任务必须经由作业系统提交运行；
   \item 提交作业时务必注意节点的内存限制，
     切勿提交超负荷任务；
   \item 提交作业时烦请注意队列的提交限制，
@@ -401,7 +401,9 @@ LAPACK （/share/base/netlib/LAPACK 目录）、\newline
 petsc （/share/base/petsc 目录）、\newline
 SuperLU （/share/base/SuperLU 目录）、\newline
 SuiteSparse （/share/base/SuiteSparse 目录）、\newline
-eigen （/share/base/eigen 目录）。
+eigen （/share/base/eigen 目录）、\newline
+ICU （/share/base/ICU 目录）、\newline
+boost （/share/base/boost 目录）。
 
 \subsubsection{工具}
 所有编译安装的工具软件都是调用 gcc/4.8.5 编译器完成安装的。
@@ -468,7 +470,7 @@ module 的搜索路径由系统环境变量 MODULEPATH 定义，
 
 \subsubsection{自定义 modulefile 文件}
 在自定义 modulefile  文件时需注意，
-文件必需以 \mynote{\#\%Module} 开头,
+文件必须以 \mynote{\#\%Module} 开头,
 这样才会被 module 识别为 modulefile 文件。
 
 常用的 modulefile 命令有：
