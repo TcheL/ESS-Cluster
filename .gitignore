@@ -1,15 +1,2 @@
 Backup.tar.gz
-*.aux
-*.blg
-*.bbl
-*.log
-*.idx
-*.ind
-*.ilg
-*.out
-*.toc
-*.synctex.gz
-*.tex.bak
-*.fdb_latexmk
-*.xdv
-*.fls
+build/
