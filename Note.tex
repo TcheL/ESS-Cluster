@@ -543,7 +543,7 @@ https://blog.csdn.net/jslove1997/article/details/80338370
 \subsubsection{SRTM-DEM 全球地形数据}
 SRTM（即 Shuttle Radar Topography Mission）项目
 根据获取的雷达影像处理制成了 DEM（即 Digital Elevation Model），
-\href{https://blog.seisman.info/srtm/}{此处} 有更多详细介绍。
+\href{https://blog.seisman.info/srtm/}{此处}有更多详细介绍。
 
 在服务器 /share/data/SRTM-DEM/ 目录下，
 分别存放有 SRTM30+（topo30.grd）和
@@ -555,6 +555,21 @@ https://topex.ucsd.edu/WWW\_html/srtm30\_plus.html
 
 \href{https://topex.ucsd.edu/WWW_html/srtm15_plus.html}{srtm15+ 主页}：
 https://topex.ucsd.edu/WWW\_html/srtm15\_plus.html
+
+\subsubsection{earth\_relief 全球地形起伏数据}
+earth\_relief 地形数据是由 \href{https://www.generic-mapping-tools.org}{GMT}
+采用其他公开地形数据制作，并以 netCDF 格式文件发布的一组
+包含多种空间精度的覆盖全球的地形起伏数据。
+
+在服务器 /share/data/earth\_relief/ 目录下，
+存放有该数据集中 $1^\circ$ 至 $15''$ 多种精度的原始数据。
+更多详细介绍及数据引用请参考：
+
+\href{https://docs.gmt-china.org/latest/dataset/earth-relief}{earth\_relief 中文介绍}：
+https://docs.gmt-china.org/latest/dataset/earth-relief
+
+\href{https://docs.generic-mapping-tools.org/6.0/datasets/earth_relief.html}{earth\_relief 英文主页}：
+https://docs.generic-mapping-tools.org/6.0/datasets/earth\_relief.html
 
 \subsubsection{CENC 2013-2016 连续波形数据}
 在服务器 /share/data/CENC/ 目录下，
@@ -590,20 +605,22 @@ https://topex.ucsd.edu/WWW\_html/srtm15\_plus.html
 对于单个原始 miniSEED 文件的预处理流程及参数如下例所示：
 \insertbash{material/cencpp.sh}{CENC 波形数据预处理示例}
 
-\subsubsection{earth\_relief 全球地形起伏数据}
-earth\_relief 地形数据是由 \href{https://www.generic-mapping-tools.org}{GMT} 
-采用其他公开地形数据制作，并以 netCDF 格式文件发布的一组
-包含多种空间精度的覆盖全球的地形起伏数据。
+\subsubsection{美国南加州部分台阵连续波形数据}
+在服务器 /share/data/California/ 目录下，
+按台阵存放有南加州地区部分台阵（包括固定台网和流动台阵）
+不同时间区间的连续波形数据。
+所有数据均由孟浩然老师从 \href{https://ds.iris.edu/gamp/}{IRIS 网站}下载
+并上传至服务器，
+如有需要，可联系管理员获取访问权限。
+更多详细介绍及 \myem{数据引用} 请参考：
 
-在服务器 /share/data/earth\_relief/ 目录下，
-存放有该数据集中 $1^\circ$ 至 $15''$ 多种精度的原始数据。
-更多详细介绍及数据引用请参考：
+RA: \href{https://ds.iris.edu/gmap/#network=YN&channel=HNZ&maxlat=33.6409&maxlon=-116.6563&minlat=33.5952&minlon=-116.7264&drawingmode=box&planet=earth}{IRIS-gmap}, \href{https://www.fdsn.org/networks/detail/YN_2010/}{FDSN-YN\_2010}
 
-\href{https://docs.gmt-china.org/latest/dataset/earth-relief}{earth\_relief 中文介绍}：
-https://docs.gmt-china.org/latest/dataset/earth-relief
+Ridgecrest\_nodal: \href{https://ds.iris.edu/gmap/#network=3J&maxlat=37.2314&maxlon=-116.2573&minlat=35.1064&minlon=-119.0966&drawingmode=box&planet=earth}{IRIS-gmap}, \href{https://www.fdsn.org/networks/detail/3J_2019/}{FDSN-3J\_2019}
 
-\href{https://docs.generic-mapping-tools.org/6.0/datasets/earth_relief.html}{earth\_relief 英文主页}：
-https://docs.generic-mapping-tools.org/6.0/datasets/earth\_relief.html
+Ridgecrest\_Permanent: \href{https://ds.iris.edu/gmap/#channel=HHZ&maxlat=36.7772&maxlon=-116.3123&minlat=34.7506&minlon=-119.0318&network=*&drawingmode=box&planet=earth}{IRIS-gmap}, \href{https://www.fdsn.org/networks/detail/CI/}{FDSN-CI}
+
+SJFZ\_nodal: \href{https://ds.iris.edu/gmap/#network=ZG&maxlat=34.1704&maxlon=-115.6036&minlat=32.7798&minlon=-117.354&drawingmode=box&planet=earth}{IRIS-gmap}, \href{https://www.fdsn.org/networks/detail/ZG_2014/}{FDSN-ZG\_2014}
 
 \section{常见问题解决}
 \subsection{作业运行问题}
